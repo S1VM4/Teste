@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd" version="7">
+  <description>skeleton ear default project</description>
+  <display-name>skeleton-ear</display-name>
+  <module>
+    <ejb>skeleton-ejb.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>br.com.skeleton-skeleton-war-1.war</web-uri>
+      <context-root>/skeleton</context-root>
+    </web>
+  </module>
+  <library-directory>lib</library-directory>
+</application>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Gerenciamento de Equipamentos</title>
+</h:head>
+<h:body>
+	<!-- Mensagens Globais -->
+	<h:messages globalOnly="true" style="color:red" />
+
+	<!-- Seção para Adicionar Equipamento -->
+	<h:panelGroup>
+		<h3>Adicionar Equipamento</h3>
+		<h:form id="formAdd">
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<h:outputLabel for="nome" value="Nome:" />
+				<h:inputText id="nome" value="#{equipamentoBean.equipamento.nome}" required="true">
+					<f:validateRequired />
+					<h:message for="nome" display="text" />
+				</h:inputText>
+
+				<h:outputLabel for="descricao" value="Descrição:" />
+				<h:inputText id="descricao" value="#{equipamentoBean.equipamento.descricao}" required="true">
+					<f:validateRequired />
+					<h:message for="descricao" display="text" />
+				</h:inputText>
+
+				<h:outputLabel for="dataAquisicao" value="Data de Aquisição (dd/MM/yyyy):" />
+				<h:inputText id="dataAquisicao" value="#{equipamentoBean.equipamento.dataAquisicao}" required="true">
+					<f:validateRequired />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+					<h:message for="dataAquisicao" display="text" />
+				</h:inputText>
+
+				<h:outputLabel for="validade" value="Validade (dd/MM/yyyy):" />
+				<h:inputText id="validade" value="#{equipamentoBean.equipamento.validade}" required="true">
+					<f:validateRequired />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+					<h:message for="validade" display="text" />
+				</h:inputText>
+
+				<h:outputLabel for="valor" value="Valor:" />
+				<h:inputText id="valor" value="#{equipamentoBean.equipamento.valor}" required="true">
+					<f:validateRequired />
+					<h:message for="valor" display="text" />
+				</h:inputText>
+
+				<h:commandButton value="Salvar" action="#{equipamentoBean.create()}" />
+			</h:panelGrid>
+		</h:form>
+	</h:panelGroup>
+
+	<hr/>
+
+	<h:panelGroup>
+		<h3>Atualizar Equipamento</h3>
+		<h:form id="formUpdate">
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<!-- Campo de ID com botão de busca -->
+				<h:outputLabel for="idUpdate" value="ID do Equipamento:" />
+				<h:panelGroup>
+					<h:inputText id="idUpdate" value="#{equipamentoBean.equipamentoId}" required="true" />
+					<h:commandButton value="Buscar" action="#{equipamentoBean.buscarEquipamento()}" update=":formUpdate" />
+					<h:message for="idUpdate" display="text" />
+				</h:panelGroup>
+
+				<!-- Campo de Nome -->
+				<h:outputLabel for="nomeUpdate" value="Nome:" />
+				<h:inputText id="nomeUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.nome}" required="true">
+					<f:validateRequired />
+					<h:message for="nomeUpdate" display="text" />
+				</h:inputText>
+
+				<!-- Campo de Descrição -->
+				<h:outputLabel for="descricaoUpdate" value="Descrição:" />
+				<h:inputText id="descricaoUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.descricao}" required="true">
+					<f:validateRequired />
+					<h:message for="descricaoUpdate" display="text" />
+				</h:inputText>
+
+				<!-- Campo de Data de Aquisição -->
+				<h:outputLabel for="dataAquisicaoUpdate" value="Data de Aquisição (dd/MM/yyyy):" />
+				<h:inputText id="dataAquisicaoUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.dataAquisicao}" required="true">
+					<f:validateRequired />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+					<h:message for="dataAquisicaoUpdate" display="text" />
+				</h:inputText>
+
+				<!-- Campo de Validade -->
+				<h:outputLabel for="validadeUpdate" value="Validade (dd/MM/yyyy):" />
+				<h:inputText id="validadeUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.validade}" required="true">
+					<f:validateRequired />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+					<h:message for="validadeUpdate" display="text" />
+				</h:inputText>
+
+				<!-- Campo de Valor -->
+				<h:outputLabel for="valorUpdate" value="Valor:" />
+				<h:inputText id="valorUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.valor}" required="true">
+					<f:validateRequired />
+					<h:message for="valorUpdate" display="text" />
+				</h:inputText>
+
+				<!-- Botão de Atualizar -->
+				<h:commandButton value="Atualizar" action="#{equipamentoBean.update()}" />
+			</h:panelGrid>
+		</h:form>
+	</h:panelGroup>
+
+
+
+
+	<hr/>
+
+	<!-- Seção para Deletar Equipamento -->
+	<h:panelGroup>
+		<h3>Deletar Equipamento</h3>
+		<h:form id="formDelete">
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<h:outputLabel for="idDelete" value="ID do Equipamento:" />
+				<h:inputText id="idDelete" value="#{equipamentoBean.equipamentoId}" required="true" />
+				<h:commandButton value="Excluir" action="#{equipamentoBean.delete(equipamentoBean.equipamentoId)}" />
+			</h:panelGrid>
+		</h:form>
+	</h:panelGroup>
+
+	<hr/>
+
+	<!-- Tabela de Equipamentos -->
+	<h:form id="formEquipamentos">
+		<h:panelGroup>
+			<h3>Lista de Equipamentos</h3>
+			<h:dataTable value="#{equipamentoBean.equipamentos}" var="equipamento" border="1">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{equipamento.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{equipamento.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Descrição</f:facet>
+					<h:outputText value="#{equipamento.descricao}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data de Aquisição</f:facet>
+					<h:outputText value="#{equipamentoBean.formatDate(equipamento.dataAquisicao)}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Validade</f:facet>
+					<h:outputText value="#{equipamentoBean.formatDate(equipamento.validade)}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{equipamento.valor}" />
+				</h:column>
+			</h:dataTable>
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>

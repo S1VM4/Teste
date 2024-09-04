@@ -1,0 +1,4 @@
+br\com\skeleton\business\entity\Equipamento.class
+br\com\skeleton\business\facade\EquipamentoFacade.class
+br\com\skeleton\business\entity\Config.class
+br\com\skeleton\business\facade\EquipamentoFacadeImpl.class
