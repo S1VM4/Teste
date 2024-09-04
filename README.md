@@ -71,7 +71,18 @@ O projeto utiliza o PostgreSQL como sistema de gerenciamento de banco de dados. 
    Após a instalação, crie um banco de dados para o projeto. Conecte-se ao PostgreSQL usando uma ferramenta como `psql` ou pgAdmin e execute o seguinte comando SQL para criar o banco de dados:
    ```sql
    CREATE DATABASE equipamentos_db;
-
+CREATE TABLE IF NOT EXISTS public.equipamentos
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    nome character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    descricao text COLLATE pg_catalog."default" NOT NULL,
+    data_aquisicao date NOT NULL,
+    validade date NOT NULL,
+    valor numeric(10,2) NOT NULL,
+    CONSTRAINT equipamentos_pkey PRIMARY KEY (id)
+)
+ALTER TABLE IF EXISTS public.equipamentos
+    OWNER to postgres;
 
 O site se encontra em:
 
