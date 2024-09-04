@@ -1,0 +1,20 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <!-- Define a unidade de persistência para o gerenciamento de entidades JPA -->
+    <persistence-unit name="EquipamentoPU" transaction-type="JTA">
+        <!-- Fonte de dados JTA configurada para conexão com o banco de dados -->
+        <jta-data-source>java:/EquipamentosDS</jta-data-source>
+        <properties>
+            <!-- Configurações para conexão com o banco de dados PostgreSQL -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/equipamentos_db"/>
+            <property name="jakarta.persistence.jdbc.user" value="Andrei"/>
+            <property name="jakarta.persistence.jdbc.password" value="meuamarelo12"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        </properties>
+    </persistence-unit>
+</persistence>

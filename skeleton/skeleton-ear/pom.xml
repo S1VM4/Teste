@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Configuração do módulo pai -->
+	<parent>
+		<groupId>br.com.skeleton</groupId>
+		<artifactId>skeleton</artifactId>
+		<version>1</version>
+	</parent>
+
+	<artifactId>skeleton-ear</artifactId>
+	<packaging>ear</packaging> <!-- Define que este módulo é do tipo EAR (Enterprise Archive) -->
+	<name>EAR skeleton</name>
+	<description>skeleton ear default project</description>
+
+	<!-- Configurações de build -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>11</source> <!-- Define a versão do Java para o código fonte -->
+					<target>11</target> <!-- Define a versão alvo do bytecode Java -->
+				</configuration>
+			</plugin>
+
+			<!-- Plugin para gerar EJBs -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<ejbVersion>3.1</ejbVersion> <!-- Especifica a versão do EJB -->
+					<generateClient>false</generateClient> <!-- Define que não será gerado cliente EJB -->
+				</configuration>
+			</plugin>
+
+			<!-- Plugin para empacotamento do EAR -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<defaultLibBundleDir>lib</defaultLibBundleDir> <!-- Define o diretório padrão para bibliotecas -->
+					<skinnyWars>true</skinnyWars> <!-- Define que as dependências serão empacotadas apenas no EAR -->
+					<generateApplicationXml>true</generateApplicationXml> <!-- Gera o arquivo application.xml -->
+					<modules>
+						<ejbModule>
+							<groupId>br.com.skeleton</groupId>
+							<artifactId>skeleton-ejb</artifactId>
+							<type>ejb</type>
+							<bundleFileName>skeleton-ejb.jar</bundleFileName> <!-- Define o nome do arquivo JAR do EJB -->
+						</ejbModule>
+						<webModule>
+							<groupId>br.com.skeleton</groupId>
+							<artifactId>skeleton-war</artifactId>
+							<type>war</type>
+							<contextRoot>/skeleton</contextRoot> <!-- Define o contexto raiz da aplicação web -->
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- Dependências do módulo EAR -->
+	<dependencies>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>skeleton-ejb</artifactId>
+			<version>${project.parent.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>skeleton-war</artifactId>
+			<version>${project.parent.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+</project>

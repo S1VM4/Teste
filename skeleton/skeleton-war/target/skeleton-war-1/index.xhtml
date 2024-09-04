@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gerenciamento de Equipamentos</title>
+</h:head>
+<h:body>
+	<!-- Mensagens Globais -->
+	<h:messages globalOnly="true" style="color:red" />
+
+	<!-- Seção para Adicionar Equipamento -->
+	<h:panelGroup>
+		<h3>Adicionar Equipamento</h3>
+		<h:form id="formAdd">
+			<p:panelGrid columns="2" columnClasses="label, value">
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" value="#{equipamentoBean.equipamento.nome}" required="true">
+					<p:message for="nome" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="descricao" value="Descrição:" />
+				<p:inputText id="descricao" value="#{equipamentoBean.equipamento.descricao}" required="true">
+					<p:message for="descricao" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="dataAquisicao" value="Data de Aquisição (dd/MM/yyyy):" />
+				<p:inputText id="dataAquisicao" value="#{equipamentoBean.equipamento.dataAquisicao}" required="true">
+					<p:message for="dataAquisicao" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="validade" value="Validade (dd/MM/yyyy):" />
+				<p:inputText id="validade" value="#{equipamentoBean.equipamento.validade}" required="true">
+					<p:message for="validade" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="valor" value="Valor:" />
+				<p:inputText id="valor" value="#{equipamentoBean.equipamento.valor}" required="true">
+					<p:message for="valor" display="text" />
+				</p:inputText>
+
+				<p:commandButton value="Salvar" action="#{equipamentoBean.create()}" update=":formAdd" />
+			</p:panelGrid>
+		</h:form>
+	</h:panelGroup>
+
+	<hr/>
+
+	<!-- Seção para Atualizar Equipamento -->
+	<h:panelGroup>
+		<h3>Atualizar Equipamento</h3>
+		<h:form id="formUpdate">
+			<p:panelGrid columns="2" columnClasses="label, value">
+				<p:outputLabel for="idUpdate" value="ID do Equipamento:" />
+				<p:inputText id="idUpdate" value="#{equipamentoBean.equipamentoId}" required="true" />
+				<p:commandButton value="Buscar" action="#{equipamentoBean.buscarEquipamento()}" update=":formUpdate" />
+
+				<p:outputLabel for="nomeUpdate" value="Nome:" />
+				<p:inputText id="nomeUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.nome}" required="true">
+					<p:message for="nomeUpdate" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="descricaoUpdate" value="Descrição:" />
+				<p:inputText id="descricaoUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.descricao}" required="true">
+					<p:message for="descricaoUpdate" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="dataAquisicaoUpdate" value="Data de Aquisição (dd/MM/yyyy):" />
+				<p:inputText id="dataAquisicaoUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.dataAquisicao}" required="true">
+					<p:message for="dataAquisicaoUpdate" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="validadeUpdate" value="Validade (dd/MM/yyyy):" />
+				<p:inputText id="validadeUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.validade}" required="true">
+					<p:message for="validadeUpdate" display="text" />
+				</p:inputText>
+
+				<p:outputLabel for="valorUpdate" value="Valor:" />
+				<p:inputText id="valorUpdate" value="#{equipamentoBean.equipamentoParaAtualizar.valor}" required="true">
+					<p:message for="valorUpdate" display="text" />
+				</p:inputText>
+
+				<p:commandButton value="Atualizar" action="#{equipamentoBean.update()}" update=":formUpdate" />
+			</p:panelGrid>
+		</h:form>
+	</h:panelGroup>
+
+	<hr/>
+
+	<!-- Seção para Deletar Equipamento -->
+	<h:panelGroup>
+		<h3>Deletar Equipamento</h3>
+		<h:form id="formDelete">
+			<p:panelGrid columns="2" columnClasses="label, value">
+				<p:outputLabel for="idDelete" value="ID do Equipamento:" />
+				<p:inputText id="idDelete" value="#{equipamentoBean.equipamentoId}" required="true" />
+				<p:commandButton value="Excluir" action="#{equipamentoBean.delete(equipamentoBean.equipamentoId)}" update=":formDelete" />
+			</p:panelGrid>
+		</h:form>
+	</h:panelGroup>
+
+
+	<hr/>
+
+	<!-- Tabela de Equipamentos -->
+	<h:panelGroup>
+		<h3>Lista de Equipamentos</h3>
+		<p:dataTable value="#{equipamentoBean.equipamentos}" var="equipamento" border="1">
+			<p:column headerText="ID">
+				<h:outputText value="#{equipamento.id}" />
+			</p:column>
+			<p:column headerText="Nome">
+				<h:outputText value="#{equipamento.nome}" />
+			</p:column>
+			<p:column headerText="Descrição">
+				<h:outputText value="#{equipamento.descricao}" />
+			</p:column>
+			<p:column headerText="Data de Aquisição">
+				<h:outputText value="#{equipamentoBean.formatDate(equipamento.dataAquisicao)}" />
+			</p:column>
+			<p:column headerText="Validade">
+				<h:outputText value="#{equipamentoBean.formatDate(equipamento.validade)}" />
+			</p:column>
+			<p:column headerText="Valor">
+				<h:outputText value="#{equipamento.valor}" />
+			</p:column>
+			<p:column headerText="Ações">
+				<p:commandButton value="Editar" action="#{equipamentoBean.setEquipamento(equipamento)}" update=":formUpdate" />
+				<p:commandButton value="Deletar" action="#{equipamentoBean.delete(equipamento.id)}" update=":formDelete" />
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+</h:body>
+</html>

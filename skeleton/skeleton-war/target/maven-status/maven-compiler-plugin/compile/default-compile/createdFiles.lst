@@ -1,0 +1,4 @@
+br\com\skeleton\web\bean\EquipamentoBean.class
+br\com\skeleton\web\facade\MBeanEnvio.class
+br\com\skeleton\web\converter\LocalDateConverter.class
+br\com\skeleton\web\ApplicationConfig.class
